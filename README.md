@@ -52,7 +52,8 @@ cmake --build .
 cmake -B build -S src -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=../conan/debug/build/Debug/generators/conan_toolchain.cmake
 cmake --build build
 
-# On Windows the above cmake command doesn't always seem to work.  When running the CMake configure and build from within VSCode, it works with no problem.  It uses the following commnd:
+# On Windows the above cmake command doesn't always seem to work.  When running the CMake configure and
+build from within VSCode, it works with no problem.  It uses the following commnd:
 cmake -DCMAKE_INSTALL_PREFIX=W:/cpp/opengl/build/vs2022-debug/install "-DCMAKE_CXX_FLAGS_INIT=  /W4 /WX /EHsc" -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=true -DCMAKE_EXPORT_COMPILE_COMMANDS=true -DCMAKE_TOOLCHAIN_FILE=W:/cpp/opengl/conan/debug/build/generators/conan_toolchain.cmake -SW:/cpp/opengl -BW:/cpp/opengl/build/vs2022-debug -G "Visual Studio 17 2022"
 # then to build:
 cmake --build W:/cpp/opengl/build/vs2022-debug --config Debug
@@ -62,6 +63,7 @@ cmake --build W:/cpp/opengl/build/vs2022-debug --config Debug
 
 I am not yet sure of the cause but I have seen that on occassion the created conan directory structure is different from what is in the CMakePresets.json file.
 Sometimes the created directory structure is: conan/debug/build/Debug/generators/conan_toolchain.cmake (there is an extra Debug directory)
+
 After running 'conan install' check this path in CMakePresets.json to make sure the paths match (before running cmake).
 
 Here is the original:
