@@ -1,0 +1,190 @@
+{
+    "version": 2,
+    "configurePresets": [
+        {
+            "name": "conan-debug",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/conan/debug/build/generators/conan_toolchain.cmake"
+            }
+        },
+        {
+            "name": "release",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true
+            },
+            "warnings": {
+                "unusedCli": false
+            }
+        },
+        {
+            "name": "debug",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "BUILD_TESTS": true,
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true
+            }
+        },
+        {
+            "name": "linux",
+            "hidden": true,
+            "generator": "linux Makefiles",
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS_INIT": "$env{CMAKE_CXX_FLAGS} -Werror -Wall -Wextra -pedantic"
+            }
+        },
+        {
+            "name": "linux-shared",
+            "hidden": true,
+            "inherits": "linux",
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS_INIT": "$env{CMAKE_CXX_FLAGS_INIT} $env{CMAKE_CXX_FLAGS} -fPIC -Werror -Wall -Wextra -pedantic",
+                "BUILD_SHARED_LIBS": true
+            }
+        },
+        {
+            "name": "vs2022",
+            "hidden": true,
+            "generator": "Visual Studio 17 2022",
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS_INIT": "$env{CMAKE_CXX_FLAGS_INIT} $env{CMAKE_CXX_FLAGS} /W4 /WX /EHsc"
+            }
+        },
+        {
+            "name": "vs2022-shared",
+            "hidden": true,
+            "generator": "Visual Studio 17 2022",
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS_INIT": "$env{CMAKE_CXX_FLAGS_INIT} $env{CMAKE_CXX_FLAGS} /W4 /WX /EHsc",
+                "BUILD_SHARED_LIBS": true
+            }
+        },
+
+        {
+            "name": "linux-release",
+            "displayName": "linux Make Release",
+            "binaryDir": "${sourceDir}/build/linux-release",
+            "inherits": ["linux", "release"],
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/linux-release/install"
+            }
+        },
+        {
+            "name": "linux-release-shared",
+            "displayName": "linux Make Release Shared",
+            "binaryDir": "${sourceDir}/build/linux-release-shared",
+            "inherits": ["linux-shared", "linux-release"],
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/linux-release-shared/install"
+            }
+        },
+        {
+            "name": "linux-debug",
+            "displayName": "linux Make Debug",
+            "binaryDir": "${sourceDir}/build/linux-debug",
+            "inherits": ["linux", "debug", "conan-debug"],
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS": "-O0 --coverage -g -fsanitize=address",
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/linux-debug/install"
+            }
+        },
+        {
+            "name": "linux-debug-shared",
+            "displayName": "linux Make Debug Shared",
+            "binaryDir": "${sourceDir}/build/linux-debug-shared",
+            "inherits": ["linux-shared", "linux-debug"],
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/linux-debug-shared/install"
+            }
+        },
+        {
+            "name": "vs2022-release",
+            "displayName": "Visual Studio 2022 Release",
+            "binaryDir": "${sourceDir}/build/vs2022-release",
+            "inherits": ["vs2022", "release"],
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/vs2022-release/install"
+            }
+        },
+        {
+            "name": "vs2022-debug",
+            "displayName": "Visual Studio 2022 Debug",
+            "binaryDir": "${sourceDir}/build/vs2022-debug",
+            "inherits": ["vs2022", "debug", "conan-debug"],
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/vs2022-debug/install"
+            }
+        },
+        {
+            "name": "vs2022-release-shared",
+            "displayName": "Visual Studio 2022 Release Shared",
+            "binaryDir": "${sourceDir}/build/vs2022-release-shared",
+            "inherits": ["vs2022-shared", "release"],
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/vs2022-release/install"
+            }
+        },
+        {
+            "name": "vs2022-debug-shared",
+            "displayName": "Visual Studio 2022 Debug Shared",
+            "binaryDir": "${sourceDir}/build/vs2022-debug-shared",
+            "inherits": ["vs2022-shared", "debug", "conan-debug"],
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/build/vs2022-debug/install"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "vs2022-release",
+            "displayName": "Visual Studio 2022 Release Build",
+            "configurePreset": "vs2022-release",
+            "configuration": "Release"
+        },
+        {
+            "name": "vs2022-debug",
+            "displayName": "Visual Studio 2022 Debug Build",
+            "configurePreset": "vs2022-debug",
+            "configuration": "Debug"
+        },
+        {
+            "name": "vs2022-release-shared",
+            "displayName": "Visual Studio 2022 Release Shared Build",
+            "configurePreset": "vs2022-release-shared",
+            "configuration": "Release"
+        },
+        {
+            "name": "vs2022-debug-shared",
+            "displayName": "Visual Studio 2022 Debug Shared Build",
+            "configurePreset": "vs2022-debug-shared",
+            "configuration": "Debug"
+        },
+        {
+            "name": "linux-debug",
+            "displayName": "linux Make Debug Build",
+            "configurePreset": "linux-debug",
+            "configuration": "Debug"
+        },
+        {
+            "name": "linux-debug-shared",
+            "displayName": "linux Make Debug Build",
+            "configurePreset": "linux-debug-shared",
+            "configuration": "Debug"
+        },
+        {
+            "name": "linux-release",
+            "displayName": "linux Make Release Build",
+            "configurePreset": "linux-release",
+            "configuration": "Release"
+        },
+        {
+            "name": "linux-release-shared",
+            "displayName": "linux Make Release Build",
+            "configurePreset": "linux-release-shared",
+            "configuration": "Release"
+        }
+    ]
+}
