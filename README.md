@@ -1,3 +1,6 @@
+# Purpose
+This template can be used to create a C++ project using glad and glfw for opengl.
+
 # Conan
 Why use conan?
 - easier dependency management
